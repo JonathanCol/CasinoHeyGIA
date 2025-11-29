@@ -18,7 +18,8 @@ namespace CasinoHeyGIA.Controllers
                 IdRuleta = request.IdRuleta,
                 Monto = request.MontoApuesta,
                 Numero = request.Numero,
-                IdUsuario = idUsuario
+                IdUsuario = idUsuario,
+                Color = request.Color
             };
             var command = new RuletaApuestaCommand()
             {

@@ -45,9 +45,9 @@ namespace CasinoHeyGIA.Infraestructure.Dapper
                 connection.Open();
                 var parametros = new DynamicParameters();
                 parametros.Add("@id", idUsuario);
-                parametros.Add("@valor", idUsuario);
+                parametros.Add("@valor", valor);
 
-                _ = (List<Usuario>)await connection.QueryAsync<Usuario>(
+                _ = (Usuario[])await connection.QueryAsync<Usuario>(
                     "UpdateAmount",
                     parametros,
                     commandType: CommandType.StoredProcedure

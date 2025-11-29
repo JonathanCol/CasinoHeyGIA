@@ -19,8 +19,6 @@ namespace CasinoHeyGIA.Application.Command
             var monto = apuestaDeserilizada.Monto;
             var ruleta = Random.Shared.Next(0, 36);
 
-            var color = decimal.Parse(apuestaDeserilizada.Numero) % 2 == 0 ? "rojo" : "negro";
-
             if (!string.IsNullOrEmpty(apuestaDeserilizada.Numero))
             {
                 if (ruleta.Equals(apuestaDeserilizada.Numero))
@@ -38,10 +36,10 @@ namespace CasinoHeyGIA.Application.Command
             }
             if (!string.IsNullOrEmpty(apuestaDeserilizada.Color))
             {
-
+                var color = ruleta % 2 == 0 ? "rojo" : "negro";
                 if (color.Equals(apuestaDeserilizada.Color))
                 {
-                    monto = apuestaDeserilizada.Monto * 1.8m;
+                    monto = (apuestaDeserilizada.Monto * 1.8m) + usuario[0].Saldo;
                     await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
                     response.response = $"Has Ganado por un valor de: {monto}";
                 }

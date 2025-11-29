@@ -18,7 +18,7 @@ namespace CasinoHeyGIA.Application.Command
             {
                 Nombre = usuario[0].Nombre,
                 Monto = request.Request.Monto,
-                Numero = request.Request.Numero.ToString(),
+                Numero = request.Request.Numero,
                 Color = request.Request.Color,
             };
 
