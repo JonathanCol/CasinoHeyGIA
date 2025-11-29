@@ -24,7 +24,7 @@ namespace CasinoHeyGIA.Infraestructure.Redis
             {
                 AbsoluteExpirationRelativeToNow = expiration ?? TimeSpan.FromMinutes(30),
                 Priority = CacheItemPriority.Normal,
-                Size = 1 // Si configuraste SizeLimit
+                Size = 1
             };
             _cache.Set(key, data, cacheOptions);
         }
