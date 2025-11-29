@@ -1,16 +1,15 @@
 ﻿using CasinoHeyGIA.Application.Command;
 using CasinoHeyGIA.Application.Models;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CasinoHeyGIA.Controllers
 {
-    public class AperturaRuletaController(IMediator _mediator) : Controller
+    public class CierreRuletaController : Controller
     {
-        [HttpPost("/AperturaRuleta")]
+        [HttpPost("/CierreRuleta")]
         public async Task<ActionResult<string>> CrearRuleta([FromBody] AperturaRuletaRequest id)
         {
-            var request = new AperturaRuletaCommand() 
+            var request = new AperturaRuletaCommand()
             {
                 Request = id
             };

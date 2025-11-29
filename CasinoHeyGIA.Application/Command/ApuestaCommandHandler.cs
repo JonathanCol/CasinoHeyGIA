@@ -21,22 +21,15 @@ namespace CasinoHeyGIA.Application.Command
                 Numero = request.Request.Numero,
             };
 
-            if (usuario.FirstOrDefault().Saldo < request.Request.Apuesta)
+            if (usuario[0].Saldo < request.Request.Apuesta)
             {
                 return "Saldo insuficiente para la apuesta";
             }
             else
             {
-                _cacheService.SetAsync($"{request.Request.Id_ruleta}-Apuesta", JsonConvert.SerializeObject(response));
+                _cacheService.SetAsync($"{request.Request.Id_Ruleta}-Apuesta", JsonConvert.SerializeObject(response));
                 return "Apuesta realizada";
             }
-                //var ruleta = Random.Shared.Next(0, 36);
-
-                //if (ruleta.Equals(request.Request.Numero))
-                //{
-                //    await _cacheService.SetAsync($"{request.Request.Id_ruleta}-Apuesta",  );
-                //}
-
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class ApuestaRequest
     {
-        public string Id_ruleta {  get; set; }
+        public string Id_Ruleta {  get; set; }
         public int Numero { get; set; }
         public decimal Apuesta { get; set; }
         public string IdUsuario { get; set; }
