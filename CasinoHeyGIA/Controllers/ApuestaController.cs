@@ -25,7 +25,7 @@ namespace CasinoHeyGIA.Controllers
                 Request = request1
             };
             var response = await _mediator.Send(command);
-            return this.Ok();
+            return this.Ok(response);
         }
     }
 }

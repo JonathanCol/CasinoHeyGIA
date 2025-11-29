@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CasinoHeyGIA.Infraestructure.Dapper
 {
-    public class DapperServicerepository(IConfiguration _configuration) : IUserService
+    public class UsersServiceRepository(IConfiguration _configuration) : IUserRepository
     {
         
         private IDbConnection CreateConnection()
@@ -16,15 +16,16 @@ namespace CasinoHeyGIA.Infraestructure.Dapper
             var _connection = _configuration.GetSection("ConnectionStrings")["DefaultConnection"];
             return new SqlConnection(_connection);
         }
-        public async Task<Usuario>GetUser(int idUsuario)
+        public async Task<List<Usuario>>GetUserAsync(int idUsuario)
         {
             using var connection = CreateConnection();
-
+            connection.Open();
             var parametros = new DynamicParameters();
             parametros.Add("@id", idUsuario);
 
-            return (Usuario)await connection.QueryAsync<Usuario>(
+            return (List<Usuario>)await connection.QueryAsync<Usuario>(
                 "GetUser",
+                parametros,
                 commandType: CommandType.StoredProcedure
             );
         }

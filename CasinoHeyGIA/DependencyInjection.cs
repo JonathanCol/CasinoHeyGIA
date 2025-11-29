@@ -1,5 +1,7 @@
 ﻿using CasinoHeyGIA.Application.Command;
 using CasinoHeyGIA.Application.Interfaces;
+using CasinoHeyGIA.Domain.Interfaces;
+using CasinoHeyGIA.Infraestructure.Dapper;
 using CasinoHeyGIA.Infraestructure.Redis;
 
 namespace CasinoHeyGIA
@@ -10,6 +12,7 @@ namespace CasinoHeyGIA
         {
             services.AddMemoryCache();
             services.AddTransient<ICacheService, MemoryCacheServiceRepository>();
+            services.AddScoped<IUserRepository, UsersServiceRepository>();
             services.AddMediatR(reg =>
             {
                 reg.RegisterServicesFromAssemblyContaining<CrearRuletaCommand>();
