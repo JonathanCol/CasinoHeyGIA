@@ -16,7 +16,6 @@ namespace CasinoHeyGIA.Application.Command
             {
                 throw new ArgumentNullException("Id de ruleta invalido");
             }
-            
             var apuestaDeserilizada = JsonConvert.DeserializeObject<RuletaApuestaResponse>(apuesta);
 
             var usuario = await _userRepository.GetUserAsync(int.Parse(request.Request.IdUsuario));
@@ -28,7 +27,7 @@ namespace CasinoHeyGIA.Application.Command
             {
                 if (ruleta.Equals(apuestaDeserilizada.Numero))
                 {
-                    monto = apuestaDeserilizada.Monto * 5;
+                    monto = apuestaDeserilizada.Monto * 5 + usuario[0].Saldo;
                     await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
                     response.response = $"Has Ganado por un valor de: {monto}";
                 }
