@@ -3,5 +3,6 @@
     public interface ICacheService
     {
         void SetAsync(string key, string data, TimeSpan? expiration = null);
+        string GetAsync(string key);
     }
 }

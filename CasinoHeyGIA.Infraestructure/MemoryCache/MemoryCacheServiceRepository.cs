@@ -6,6 +6,18 @@ namespace CasinoHeyGIA.Infraestructure.Redis
 {
     public class MemoryCacheServiceRepository(IMemoryCache _cache) : ICacheService
     {
+        public string GetAsync(string key)
+        {
+            var exist = _cache.TryGetValue(key, out var value);
+            if (exist)
+            {
+                return value.ToString();
+            }else 
+            {
+                return string.Empty; 
+            }
+        }
+
         public void SetAsync(string key, string data, TimeSpan? expiration = null)
         {
             var cacheOptions = new MemoryCacheEntryOptions

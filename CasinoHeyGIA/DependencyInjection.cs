@@ -8,12 +8,13 @@ namespace CasinoHeyGIA
     {
         public static IServiceCollection AddAplication(this IServiceCollection services, IConfiguration configuration) 
         {
-            var prueba = configuration.GetSection("Redis")["ConnectionString"];
             services.AddMemoryCache();
             services.AddTransient<ICacheService, MemoryCacheServiceRepository>();
             services.AddMediatR(reg =>
             {
                 reg.RegisterServicesFromAssemblyContaining<CrearRuletaCommand>();
+                reg.RegisterServicesFromAssemblyContaining<AperturaRuletaCommand>();
+
             });
             return services;
         
