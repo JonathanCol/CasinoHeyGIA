@@ -17,7 +17,7 @@ namespace CasinoHeyGIA
             {
                 reg.RegisterServicesFromAssemblyContaining<CrearRuletaCommand>();
                 reg.RegisterServicesFromAssemblyContaining<AperturaRuletaCommand>();
-
+                reg.RegisterServicesFromAssemblyContaining<CierreRuletaCommand>();
             });
             return services;
         

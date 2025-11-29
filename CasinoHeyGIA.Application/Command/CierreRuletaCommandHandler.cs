@@ -14,7 +14,8 @@ namespace CasinoHeyGIA.Application.Command
             var apuestaDeserilizada = JsonConvert.DeserializeObject<ApuestaResponse>(apuesta);
 
             var monto = apuestaDeserilizada.Apuesta;
-            var ruleta = Random.Shared.Next(0, 36);
+            //var ruleta = Random.Shared.Next(0, 36);
+            var ruleta = 15;
             if (ruleta.Equals(apuestaDeserilizada.Numero))
             {
                 var numero = apuestaDeserilizada.Numero % 2;
@@ -33,7 +34,7 @@ namespace CasinoHeyGIA.Application.Command
             {
                 response.response = $"Has perdido la apuesta";
             }
-            throw new NotImplementedException();
+            return Task.FromResult(response);
         }
     }
 }

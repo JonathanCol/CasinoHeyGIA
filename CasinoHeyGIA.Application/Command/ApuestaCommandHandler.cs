@@ -17,7 +17,7 @@ namespace CasinoHeyGIA.Application.Command
             ApuestaResponse response = new ApuestaResponse() 
             {
                 Nombre = usuario[0].Nombre,
-                Apuesta = usuario[0].Saldo,
+                Apuesta = request.Request.Apuesta,
                 Numero = request.Request.Numero,
             };
 

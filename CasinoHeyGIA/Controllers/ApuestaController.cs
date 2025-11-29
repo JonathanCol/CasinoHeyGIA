@@ -15,7 +15,7 @@ namespace CasinoHeyGIA.Controllers
         {
             ApuestaRequest request1 = new ApuestaRequest()
             {
-                Id_ruleta = request.Id_ruleta,
+                Id_Ruleta = request.Id_Ruleta,
                 Apuesta = request.MontoApuesta,
                 Numero = request.Numero,
                 IdUsuario = idUsuario
