@@ -26,7 +26,10 @@ namespace CasinoHeyGIA.Application.Command
                 Numero = request.Request.Numero,
                 Color = request.Request.Color,
             };
-
+            if(request.Request.Monto > 10000)
+            {
+                return "El monto de la apuesta no debe superar el valor de 10000";
+            }
             if (usuario[0].Saldo < request.Request.Monto)
             {
                 return "Saldo insuficiente para la apuesta";
