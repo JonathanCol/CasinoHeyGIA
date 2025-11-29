@@ -18,16 +18,46 @@ namespace CasinoHeyGIA.Infraestructure.Dapper
         }
         public async Task<List<Usuario>>GetUserAsync(int idUsuario)
         {
-            using var connection = CreateConnection();
-            connection.Open();
-            var parametros = new DynamicParameters();
-            parametros.Add("@id", idUsuario);
+            try
+            {
+                using var connection = CreateConnection();
+                connection.Open();
+                var parametros = new DynamicParameters();
+                parametros.Add("@id", idUsuario);
 
-            return (List<Usuario>)await connection.QueryAsync<Usuario>(
-                "GetUser",
-                parametros,
-                commandType: CommandType.StoredProcedure
-            );
+                return (List<Usuario>)await connection.QueryAsync<Usuario>(
+                    "GetUser",
+                    parametros,
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+        public async Task UpdateAmountAsync(decimal valor, int idUsuario)
+        {
+            try
+            {
+                using var connection = CreateConnection();
+                connection.Open();
+                var parametros = new DynamicParameters();
+                parametros.Add("@id", idUsuario);
+                parametros.Add("@valor", idUsuario);
+
+                _ = (List<Usuario>)await connection.QueryAsync<Usuario>(
+                    "UpdateAmount",
+                    parametros,
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
     }
 }
