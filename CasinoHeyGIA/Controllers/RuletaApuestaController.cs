@@ -5,20 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CasinoHeyGIA.Controllers
 {
-    public class CierreRuletaController(IMediator _mediator) : Controller
+    public class RuletaApuestaController(IMediator _mediator) : Controller
     {
-        [HttpPost("/CierreRuleta")]
-        public async Task<ActionResult<string>> CierreRuleta(
-            [FromBody] CierreRuletaAux request,
+        [HttpPut("/Apuesta")]
+        public async Task<ActionResult<string>> CreaRuleta(
+            [FromBody] RuletaApuestaRequestAux request,
             [FromHeader(Name = "Id_usuario")] string idUsuario = null
             )
         {
-            CierreRuletaRequest request1 = new CierreRuletaRequest()
+            RuletaApuestaRequest request1 = new RuletaApuestaRequest()
             {
                 Id_Ruleta = request.Id_Ruleta,
-                idUsuario = idUsuario
+                Apuesta = request.MontoApuesta,
+                Numero = request.Numero,
+                IdUsuario = idUsuario
             };
-            var command = new CierreRuletaCommand()
+            var command = new RuletaApuestaCommand()
             {
                 Request = request1
             };

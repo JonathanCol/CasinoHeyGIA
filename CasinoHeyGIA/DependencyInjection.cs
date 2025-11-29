@@ -15,9 +15,9 @@ namespace CasinoHeyGIA
             services.AddScoped<IUserRepository, UsersServiceRepository>();
             services.AddMediatR(reg =>
             {
-                reg.RegisterServicesFromAssemblyContaining<CrearRuletaCommand>();
-                reg.RegisterServicesFromAssemblyContaining<AperturaRuletaCommand>();
-                reg.RegisterServicesFromAssemblyContaining<CierreRuletaCommand>();
+                reg.RegisterServicesFromAssemblyContaining<RuletaCrearCommand>();
+                reg.RegisterServicesFromAssemblyContaining<RuletaAperturaCommand>();
+                reg.RegisterServicesFromAssemblyContaining<RuletaCierreCommand>();
             });
             return services;
         

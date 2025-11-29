@@ -1,6 +1,6 @@
 ﻿namespace CasinoHeyGIA.Application.Models
 {
-    public class AperturaRuletaResponse
+    public class RuletaAperturaResponse
     {
         public string Estado { get; set; }
     }

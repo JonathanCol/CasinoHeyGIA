@@ -3,8 +3,8 @@ using MediatR;
 
 namespace CasinoHeyGIA.Application.Command
 {
-    public class ApuestaCommand : IRequest<string>
+    public class RuletaApuestaCommand : IRequest<string>
     {
-        public ApuestaRequest Request { get; set; }
+        public RuletaApuestaRequest Request { get; set; }
     }
 }

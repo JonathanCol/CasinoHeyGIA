@@ -2,7 +2,7 @@
 
 namespace CasinoHeyGIA.Application.Command
 {
-    public class CrearRuletaCommand :IRequest<string>
+    public class RuletaCrearCommand :IRequest<string>
     {
 
     }

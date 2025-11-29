@@ -3,11 +3,11 @@ using CasinoHeyGIA.Application.Models;
 using MediatR;
 namespace CasinoHeyGIA.Application.Command
 {
-    public class AperturaRuletaCommandHandler(ICacheService _cacheService) : IRequestHandler<AperturaRuletaCommand, AperturaRuletaResponse>
+    public class RuletaAperturaCommandHandler(ICacheService _cacheService) : IRequestHandler<RuletaAperturaCommand, RuletaAperturaResponse>
     {
-        public Task<AperturaRuletaResponse> Handle(AperturaRuletaCommand request, CancellationToken cancellationToken)
+        public Task<RuletaAperturaResponse> Handle(RuletaAperturaCommand request, CancellationToken cancellationToken)
         {
-            AperturaRuletaResponse response = new AperturaRuletaResponse();
+            RuletaAperturaResponse response = new RuletaAperturaResponse();
             var id = request.Request.Id;
             var valor = _cacheService.GetAsync(id);
             if (!string.IsNullOrEmpty(valor))

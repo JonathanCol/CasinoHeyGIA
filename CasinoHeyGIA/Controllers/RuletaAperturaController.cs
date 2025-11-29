@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CasinoHeyGIA.Controllers
 {
-    public class AperturaRuletaController(IMediator _mediator) : Controller
+    public class RuletaAperturaController(IMediator _mediator) : Controller
     {
         [HttpPost("/AperturaRuleta")]
-        public async Task<ActionResult<string>> CrearRuleta([FromBody] AperturaRuletaRequest id)
+        public async Task<ActionResult<string>> CrearRuleta([FromBody] RuletaAperturaRequest id)
         {
-            var request = new AperturaRuletaCommand() 
+            var request = new RuletaAperturaCommand() 
             {
                 Request = id
             };

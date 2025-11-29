@@ -3,9 +3,9 @@ using MediatR;
 
 namespace CasinoHeyGIA.Application.Command
 {
-    public class CrearRuletaCommandHandler(ICacheService _cacheService) : IRequestHandler<CrearRuletaCommand, string>
+    public class RuletaCrearCommandHandler(ICacheService _cacheService) : IRequestHandler<RuletaCrearCommand, string>
     {
-        public Task<string> Handle(CrearRuletaCommand request, CancellationToken cancellationToken)
+        public Task<string> Handle(RuletaCrearCommand request, CancellationToken cancellationToken)
         {
             var id = Guid.NewGuid().ToString();
             _cacheService.SetAsync(id, id);

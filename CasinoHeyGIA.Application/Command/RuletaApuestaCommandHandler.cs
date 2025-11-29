@@ -7,21 +7,22 @@ using System.Text.Json.Serialization;
 
 namespace CasinoHeyGIA.Application.Command
 {
-    public class ApuestaCommandHandler(IUserRepository _userRepository, ICacheService _cacheService) : IRequestHandler<ApuestaCommand, string>
+    public class RuletaApuestaCommandHandler(IUserRepository _userRepository, ICacheService _cacheService) : IRequestHandler<RuletaApuestaCommand, string>
     {
-        public async Task<string> Handle(ApuestaCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(RuletaApuestaCommand request, CancellationToken cancellationToken)
         {
             
             var usuario = await _userRepository.GetUserAsync(int.Parse(request.Request.IdUsuario));
 
-            ApuestaResponse response = new ApuestaResponse() 
+            RuletaApuestaResponse response = new RuletaApuestaResponse() 
             {
                 Nombre = usuario[0].Nombre,
-                Apuesta = request.Request.Apuesta,
+                Monto = request.Request.Monto,
                 Numero = request.Request.Numero,
+                Color = request.Request.Color,
             };
 
-            if (usuario[0].Saldo < request.Request.Apuesta)
+            if (usuario[0].Saldo < request.Request.Monto)
             {
                 return "Saldo insuficiente para la apuesta";
             }
