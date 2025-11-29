@@ -8,15 +8,15 @@ namespace CasinoHeyGIA.Controllers
     public class RuletaApuestaController(IMediator _mediator) : Controller
     {
         [HttpPut("/Apuesta")]
-        public async Task<ActionResult<string>> CreaRuleta(
+        public async Task<ActionResult<string>> Apuesta(
             [FromBody] RuletaApuestaRequestAux request,
             [FromHeader(Name = "Id_usuario")] string idUsuario = null
             )
         {
             RuletaApuestaRequest request1 = new RuletaApuestaRequest()
             {
-                Id_Ruleta = request.Id_Ruleta,
-                Apuesta = request.MontoApuesta,
+                IdRuleta = request.IdRuleta,
+                Monto = request.MontoApuesta,
                 Numero = request.Numero,
                 IdUsuario = idUsuario
             };

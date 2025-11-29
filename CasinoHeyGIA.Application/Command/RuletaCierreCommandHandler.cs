@@ -11,31 +11,48 @@ namespace CasinoHeyGIA.Application.Command
         public async Task<RuletaCierreResponse> Handle(RuletaCierreCommand request, CancellationToken cancellationToken)
         {
             RuletaCierreResponse response = new RuletaCierreResponse();
-            var apuesta = _cacheService.GetAsync($"{request.Request.Id_Ruleta}-Apuesta");
+            var apuesta = _cacheService.GetAsync($"{request.Request.IdRuleta}-Apuesta");
             var apuestaDeserilizada = JsonConvert.DeserializeObject<RuletaApuestaResponse>(apuesta);
+
+            var usuario = await _userRepository.GetUserAsync(int.Parse(request.Request.IdUsuario));
 
             var monto = apuestaDeserilizada.Monto;
             var ruleta = Random.Shared.Next(0, 36);
-            if (ruleta.Equals(apuestaDeserilizada.Numero))
+
+            var color = decimal.Parse(apuestaDeserilizada.Numero) % 2 == 0 ? "rojo" : "negro";
+
+            if (!string.IsNullOrEmpty(apuestaDeserilizada.Numero))
             {
-                var numero = apuestaDeserilizada.Numero % 2;
-                if (numero.Equals(0))
+                if (ruleta.Equals(apuestaDeserilizada.Numero))
                 {
                     monto = apuestaDeserilizada.Monto * 5;
-                    await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.idUsuario));
+                    await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
                     response.response = $"Has Ganado por un valor de: {monto}";
                 }
                 else
                 {
-                    monto = apuestaDeserilizada.Monto * 1.8m;
-                    await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.idUsuario));
-                    response.response = $"Has Ganado por un valor de: {monto}";
+                    monto = usuario[0].Saldo - apuestaDeserilizada.Monto;
+                    await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
+                    response.response = $"Has perdido la apuesta";
                 }
             }
-            else
+            if (!string.IsNullOrEmpty(apuestaDeserilizada.Color))
             {
-                response.response = $"Has perdido la apuesta";
+
+                if (color.Equals(apuestaDeserilizada.Color))
+                {
+                    monto = apuestaDeserilizada.Monto * 1.8m;
+                    await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
+                    response.response = $"Has Ganado por un valor de: {monto}";
+                }
+                else
+                {
+                    monto = usuario[0].Saldo - apuestaDeserilizada.Monto;
+                    await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
+                    response.response = $"Has perdido la apuesta";
+                }
             }
+
             return response;
         }
     }

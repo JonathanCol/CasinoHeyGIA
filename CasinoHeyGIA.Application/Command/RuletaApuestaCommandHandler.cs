@@ -18,7 +18,7 @@ namespace CasinoHeyGIA.Application.Command
             {
                 Nombre = usuario[0].Nombre,
                 Monto = request.Request.Monto,
-                Numero = request.Request.Numero,
+                Numero = request.Request.Numero.ToString(),
                 Color = request.Request.Color,
             };
 
@@ -28,7 +28,7 @@ namespace CasinoHeyGIA.Application.Command
             }
             else
             {
-                _cacheService.SetAsync($"{request.Request.Id_Ruleta}-Apuesta", JsonConvert.SerializeObject(response));
+                _cacheService.SetAsync($"{request.Request.IdRuleta}-Apuesta", JsonConvert.SerializeObject(response));
                 return "Apuesta realizada";
             }
         }

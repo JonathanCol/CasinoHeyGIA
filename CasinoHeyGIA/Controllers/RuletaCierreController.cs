@@ -7,16 +7,20 @@ namespace CasinoHeyGIA.Controllers
 {
     public class RuletaCierreController(IMediator _mediator) : Controller
     {
-        [HttpPost("/CierreRuleta")]
-        public async Task<ActionResult<string>> CierreRuleta(
+        [HttpPost("/Cierre")]
+        public async Task<ActionResult<string>> Cierre(
             [FromBody] RuletaCierreAux request,
-            [FromHeader(Name = "Id_usuario")] string idUsuario = null
+            [FromHeader(Name = "Id-Usuario")] string idUsuario = null
             )
         {
-            RuletaCierreRequest request1 = new RuletaCierreRequest()
+            if(string.IsNullOrEmpty(idUsuario))
             {
-                Id_Ruleta = request.Id_Ruleta,
-                idUsuario = idUsuario
+                throw new HttpRequestException("Autenticación fallida");
+            }
+            RuletaCierreRequest request1 = new RuletaCierreRequest()
+            {   
+                IdRuleta = request.IdRuleta,
+                IdUsuario = idUsuario
             };
             var command = new RuletaCierreCommand()
             {

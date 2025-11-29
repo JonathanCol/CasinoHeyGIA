@@ -2,7 +2,7 @@
 {
     public class RuletaCierreRequest
     {
-        public string Id_Ruleta { get; set; }
-        public string idUsuario { get; set; }
+        public string IdRuleta { get; set; }
+        public string IdUsuario { get; set; }
     }
 }
