@@ -14,6 +14,11 @@ namespace CasinoHeyGIA.Application.Command
             
             var usuario = await _userRepository.GetUserAsync(int.Parse(request.Request.IdUsuario));
 
+            if(string.IsNullOrEmpty(request.Request.Numero) && string.IsNullOrEmpty(request.Request.Color))
+            {
+                throw new ArgumentException("Parametros invalidos para la apuesta");
+            }
+
             RuletaApuestaResponse response = new RuletaApuestaResponse() 
             {
                 Nombre = usuario[0].Nombre,

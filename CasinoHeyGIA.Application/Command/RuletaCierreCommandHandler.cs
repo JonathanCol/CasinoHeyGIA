@@ -12,6 +12,11 @@ namespace CasinoHeyGIA.Application.Command
         {
             RuletaCierreResponse response = new RuletaCierreResponse();
             var apuesta = _cacheService.GetAsync($"{request.Request.IdRuleta}-Apuesta");
+            if (string.IsNullOrEmpty(apuesta))
+            {
+                throw new ArgumentNullException("Id de ruleta invalido");
+            }
+            
             var apuestaDeserilizada = JsonConvert.DeserializeObject<RuletaApuestaResponse>(apuesta);
 
             var usuario = await _userRepository.GetUserAsync(int.Parse(request.Request.IdUsuario));
