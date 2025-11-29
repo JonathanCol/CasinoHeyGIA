@@ -1,0 +1,6 @@
+@CasinoHeyGIA_HostAddress = http://localhost:5020
+
+GET {{CasinoHeyGIA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
