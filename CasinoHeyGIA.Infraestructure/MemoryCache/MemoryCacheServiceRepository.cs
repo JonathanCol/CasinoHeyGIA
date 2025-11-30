@@ -8,25 +8,44 @@ namespace CasinoHeyGIA.Infraestructure.Redis
     {
         public string GetAsync(string key)
         {
-            var exist = _cache.TryGetValue(key, out var value);
-            if (exist)
+            try
             {
-                return value.ToString();
-            }else 
-            {
-                return string.Empty; 
+                var exist = _cache.TryGetValue(key, out var value);
+                if (exist)
+                {
+                    return value.ToString();
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void SetAsync(string key, string data, TimeSpan? expiration = null)
         {
-            var cacheOptions = new MemoryCacheEntryOptions
+            try
             {
-                AbsoluteExpirationRelativeToNow = expiration ?? TimeSpan.FromMinutes(30),
-                Priority = CacheItemPriority.Normal,
-                Size = 1
-            };
-            _cache.Set(key, data, cacheOptions);
+                var cacheOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = expiration ?? TimeSpan.FromMinutes(30),
+                    Priority = CacheItemPriority.Normal,
+                    Size = 1
+                };
+                _cache.Set(key, data, cacheOptions);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

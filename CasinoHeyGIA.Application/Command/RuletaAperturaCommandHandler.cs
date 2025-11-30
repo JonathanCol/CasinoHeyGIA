@@ -16,7 +16,7 @@ namespace CasinoHeyGIA.Application.Command
             }
             else
             {
-                response.Estado = "Id de ruleta no encontrado";
+                response.Estado = "Apertura de ruleta fallida: Id de ruleta no encontrado";
             }
             return Task.FromResult(response);
         }
