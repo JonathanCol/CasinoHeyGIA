@@ -23,6 +23,10 @@ namespace CasinoHeyGIA.Application.Command
             var monto = apuestaDeserilizada.Monto;
             var ruleta = Random.Shared.Next(0, 36);
 
+            if(int.Parse(apuestaDeserilizada.Numero) < 0)
+            {
+                response.response = "El numero debe ser mayor o igual a 0";
+            }
             if (!string.IsNullOrEmpty(apuestaDeserilizada.Numero))
             {
                 if (ruleta.Equals(apuestaDeserilizada.Numero))
@@ -54,7 +58,6 @@ namespace CasinoHeyGIA.Application.Command
                     response.response = $"Has perdido la apuesta";
                 }
             }
-
             return response;
         }
     }

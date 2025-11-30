@@ -16,7 +16,7 @@ namespace CasinoHeyGIA.Application.Command
 
             if(string.IsNullOrEmpty(request.Request.Numero) && string.IsNullOrEmpty(request.Request.Color))
             {
-                throw new ArgumentException("Parametros invalidos para la apuesta");
+                return "Parametros invalidos para la apuesta";
             }
 
             RuletaApuestaResponse response = new RuletaApuestaResponse() 
