@@ -8,13 +8,13 @@ namespace CasinoHeyGIA.Controllers
     public class RuletaAperturaController(IMediator _mediator) : Controller
     {
         [HttpPost("/Apertura")]
-        public async Task<ActionResult<string>> Apertura([FromBody] RuletaAperturaRequest id)
+        public async Task<ActionResult<string>> Apertura([FromBody] RuletaAperturaRequest request)
         {
-            var request = new RuletaAperturaCommand() 
+            var command = new RuletaAperturaCommand() 
             {
-                Request = id
+                Request = request
             };
-            var response = await _mediator.Send(request);
+            var response = await _mediator.Send(command);
             return this.Ok(response);
         }
     }
