@@ -3,6 +3,7 @@ using CasinoHeyGIA.Application.Models;
 using CasinoHeyGIA.Domain.Interfaces;
 using MediatR;
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace CasinoHeyGIA.Application.Command
 {
@@ -24,8 +25,10 @@ namespace CasinoHeyGIA.Application.Command
             var ruleta = Random.Shared.Next(0, 36);
 
             if(int.Parse(apuestaDeserilizada.Numero) < 0)
-            {
-                response.response = "El numero debe ser mayor o igual a 0";
+            { 
+                response.Estado = "Error";
+                response.esGanador = false;
+                response.Resultados = "El numero debe ser mayor o igual a 0";
             }
             if (!string.IsNullOrEmpty(apuestaDeserilizada.Numero))
             {
@@ -33,29 +36,40 @@ namespace CasinoHeyGIA.Application.Command
                 {
                     monto = apuestaDeserilizada.Monto * 5 + usuario[0].Saldo;
                     await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
-                    response.response = $"Has Ganado por un valor de: {monto}";
+                    response.Estado = "OK";
+                    response.esGanador = true;
+                    response.Resultados = $"{usuario[0].Nombre} Has ganado la apuesta por un valor de: {monto}";
                 }
                 else
                 {
                     monto = usuario[0].Saldo - apuestaDeserilizada.Monto;
                     await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
-                    response.response = $"Has perdido la apuesta";
+                    response.Estado = "OK";
+                    response.esGanador = false;
+                    response.Resultados = $"{usuario[0].Nombre} Has perdido la apuesta";
                 }
             }
             if (!string.IsNullOrEmpty(apuestaDeserilizada.Color))
             {
+
                 var color = ruleta % 2 == 0 ? "rojo" : "negro";
-                if (color.Equals(apuestaDeserilizada.Color))
+                bool sonIguales = string.Equals(color, apuestaDeserilizada.Color, StringComparison.OrdinalIgnoreCase);
+
+                if (sonIguales)
                 {
                     monto = (apuestaDeserilizada.Monto * 1.8m) + usuario[0].Saldo;
                     await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
-                    response.response = $"Has Ganado por un valor de: {monto}";
+                    response.Estado = "OK";
+                    response.esGanador = true;
+                    response.Resultados = $"{usuario[0].Nombre} Has ganado la apuesta por un valor de: {monto}";
                 }
                 else
                 {
                     monto = usuario[0].Saldo - apuestaDeserilizada.Monto;
                     await _userRepository.UpdateAmountAsync(monto, int.Parse(request.Request.IdUsuario));
-                    response.response = $"Has perdido la apuesta";
+                    response.Estado = "OK";
+                    response.esGanador = false;
+                    response.Resultados = $"{usuario[0].Nombre} Has perdido la apuesta";
                 }
             }
             return response;

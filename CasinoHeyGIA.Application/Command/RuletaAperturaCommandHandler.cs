@@ -9,14 +9,24 @@ namespace CasinoHeyGIA.Application.Command
         {
             RuletaAperturaResponse response = new RuletaAperturaResponse();
             var id = request.Request.Id;
+
+            if (string.IsNullOrEmpty(id))
+            {
+                response.Estado = "Error";
+                response.Message = "El valor de id no puede ser vacio o nulo";
+                return Task.FromResult(response);
+
+            }
             var valor = _cacheService.GetAsync(id);
             if (!string.IsNullOrEmpty(valor))
             {
-                response.Estado = "Apertura de ruleta exitosa";
+                response.Estado = "OK";
+                response.Message = "Apertura de ruleta exitosa";
             }
             else
             {
-                response.Estado = "Apertura de ruleta fallida: Id de ruleta no encontrado";
+                response.Estado = "Error";
+                response.Message = "Id de ruleta no encontrado";
             }
             return Task.FromResult(response);
         }

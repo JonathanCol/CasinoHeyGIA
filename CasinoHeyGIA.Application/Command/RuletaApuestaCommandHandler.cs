@@ -3,6 +3,8 @@ using CasinoHeyGIA.Application.Models;
 using CasinoHeyGIA.Domain.Interfaces;
 using MediatR;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.Security.AccessControl;
 using System.Text.Json.Serialization;
 
 namespace CasinoHeyGIA.Application.Command
@@ -14,11 +16,20 @@ namespace CasinoHeyGIA.Application.Command
             
             var usuario = await _userRepository.GetUserAsync(int.Parse(request.Request.IdUsuario));
 
-            if(string.IsNullOrEmpty(request.Request.Numero) && string.IsNullOrEmpty(request.Request.Color))
+            if (usuario.Count() == 0)
+            {
+                return "Usuario no encontrado";
+            }
+
+            if (string.IsNullOrEmpty(request.Request.Numero) && string.IsNullOrEmpty(request.Request.Color))
             {
                 return "Parametros invalidos para la apuesta";
             }
 
+            if (int.Parse(request.Request.Numero) > 36 || int.Parse(request.Request.Numero) < 0)
+            {
+                return "Parametros invalidos para la apuesta";
+            }
             RuletaApuestaResponse response = new RuletaApuestaResponse() 
             {
                 Nombre = usuario[0].Nombre,
@@ -26,9 +37,15 @@ namespace CasinoHeyGIA.Application.Command
                 Numero = request.Request.Numero,
                 Color = request.Request.Color,
             };
-            if(request.Request.Monto > 10000)
+
+            bool esValido = Enum.TryParse(request.Request.Color, true, out ColorEnum resultado);
+            if (!esValido) 
             {
-                return "El monto de la apuesta no debe superar el valor de 10000";
+                return $"El color {request.Request.Color} no es valido";
+            }
+            if (request.Request.Monto > 10000 || request.Request.Monto <= 0)
+            {
+                return "El monto de la apuesta debe ser superior a cero y menor a 10000";
             }
             if (usuario[0].Saldo < request.Request.Monto)
             {

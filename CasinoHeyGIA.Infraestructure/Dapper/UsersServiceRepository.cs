@@ -4,7 +4,6 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CasinoHeyGIA.Infraestructure.Dapper
 {
